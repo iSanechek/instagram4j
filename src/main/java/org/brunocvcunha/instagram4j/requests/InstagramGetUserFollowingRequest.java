@@ -15,7 +15,8 @@
  */
 package org.brunocvcunha.instagram4j.requests;
 
-import org.brunocvcunha.instagram4j.requests.payload.InstagramFeedResult;
+import org.brunocvcunha.instagram4j.InstagramConstants;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramGetUserFollowersResult;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -23,30 +24,32 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 /**
- * User Feed Request
+ * Get User Followers Request
  * 
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@AllArgsConstructor
 @RequiredArgsConstructor
-public class InstagramUserFeedResult extends InstagramGetRequest<InstagramFeedResult> {
+@AllArgsConstructor
+public class InstagramGetUserFollowingRequest extends InstagramGetRequest<InstagramGetUserFollowersResult> {
 
     @NonNull
     private long userId;
     private String maxId;
-    private long minTimestamp;
-    
-    
+
     @Override
     public String getUrl() {
-        return "feed/user/" + userId + "/?max_id=" + maxId + "&min_timestamp=" + minTimestamp + "&rank_token=" + api.getRankToken() + "&ranked_content=true&";
+        String baseUrl = "friendships/" + userId + "/following/?rank_token=" + api.getRankToken() + "&ig_sig_key_version=" + InstagramConstants.API_KEY_VERSION;
+        if (maxId != null && !maxId.isEmpty()) {
+            baseUrl += "&max_id=" + maxId;
+        }
+        return baseUrl;
     }
 
     @Override
     @SneakyThrows
-    public InstagramFeedResult parseResult(int statusCode, String content) {
-        return parseJson(content, InstagramFeedResult.class);
+    public InstagramGetUserFollowersResult parseResult(int statusCode, String content) {
+        return parseJson(statusCode, content, InstagramGetUserFollowersResult.class);
     }
 
 }

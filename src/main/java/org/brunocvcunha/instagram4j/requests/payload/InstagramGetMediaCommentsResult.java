@@ -15,30 +15,27 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.NonFinal;
 
 /**
- * Status Result
- * @author Bruno Candido Volpato da Cunha
+ * Response from media comments request
+ *
+ * Evgeny Bondarenko (evgbondarenko@gmail.com)
  *
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
-@RequiredArgsConstructor
-@NoArgsConstructor
-public class StatusResult {
-    @NonNull
-    private String status;
-    private String message;
-
+public class InstagramGetMediaCommentsResult extends StatusResult {
+	private boolean comment_likes_enabled;
+	private int comment_count;
+	private boolean caption_is_edited;
+	private boolean has_more_comments;
+	private boolean has_more_headload_comments;
+	private String next_max_id;
+	private List<InstagramComment> comments;
 }

@@ -28,6 +28,7 @@ import org.apache.http.util.EntityUtils;
 import org.brunocvcunha.instagram4j.InstagramConstants;
 import org.brunocvcunha.instagram4j.requests.internal.InstagramConfigurePhotoRequest;
 import org.brunocvcunha.instagram4j.requests.internal.InstagramExposeRequest;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramConfigurePhotoResult;
 import org.brunocvcunha.instagram4j.requests.payload.StatusResult;
 
 import lombok.AllArgsConstructor;
@@ -45,7 +46,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class InstagramUploadPhotoRequest extends InstagramRequest<StatusResult> {
+public class InstagramUploadPhotoRequest extends InstagramRequest<InstagramConfigurePhotoResult> {
 
     @NonNull
     private File imageFile;
@@ -65,7 +66,7 @@ public class InstagramUploadPhotoRequest extends InstagramRequest<StatusResult> 
     }
     
     @Override
-    public StatusResult execute() throws ClientProtocolException, IOException {
+    public InstagramConfigurePhotoResult execute() throws ClientProtocolException, IOException {
         
         if (uploadId == null) {
             uploadId = String.valueOf(System.currentTimeMillis());
@@ -91,7 +92,7 @@ public class InstagramUploadPhotoRequest extends InstagramRequest<StatusResult> 
             }
             
             
-            StatusResult configurePhotoResult = api.sendRequest(new InstagramConfigurePhotoRequest(imageFile, uploadId, caption));
+            InstagramConfigurePhotoResult configurePhotoResult = api.sendRequest(new InstagramConfigurePhotoRequest(imageFile, uploadId, caption));
             
             log.info("Configure photo result: " + configurePhotoResult);
             if (!configurePhotoResult.getStatus().equalsIgnoreCase("ok")) {
@@ -104,7 +105,7 @@ public class InstagramUploadPhotoRequest extends InstagramRequest<StatusResult> 
                 throw new IllegalArgumentException("Failed to expose image: " + exposeResult.getMessage());
             }
 
-            return result;
+            return configurePhotoResult;
         }
     }
 
@@ -148,8 +149,8 @@ public class InstagramUploadPhotoRequest extends InstagramRequest<StatusResult> 
     }
 
     @Override
-    public StatusResult parseResult(int resultCode, String content) {
-        return parseJson(content, StatusResult.class);
+    public InstagramConfigurePhotoResult parseResult(int statusCode, String content) {
+        return parseJson(statusCode, content, InstagramConfigurePhotoResult.class);
     }
 
 }

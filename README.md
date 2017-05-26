@@ -18,12 +18,12 @@ Download [the latest release JAR][1] or grab via Maven:
 <dependency>
   <groupId>org.brunocvcunha.instagram4j</groupId>
   <artifactId>instagram4j</artifactId>
-  <version>1.0</version>
+  <version>1.2</version>
 </dependency>
 ```
 or Gradle:
 ```groovy
-compile 'org.brunocvcunha.instagram4j:instagram4j:1.0'
+compile 'org.brunocvcunha.instagram4j:instagram4j:1.2'
 ```
 
 
@@ -90,8 +90,8 @@ instagram.sendRequest(new InstagramUploadVideoRequest(
 
 #### Get feed for a hashtag
 ```java
-InstagramTagFeedResult tagFeed = instagram.sendRequest(new InstagramTagFeedRequest("github"));
-for (InstagramTagFeedResultTag feedResult : tagFeed.getItems()) {
+InstagramFeedResult tagFeed = instagram.sendRequest(new InstagramTagFeedRequest("github"));
+for (InstagramFeedItem feedResult : tagFeed.getItems()) {
     System.out.println("Post ID: " + feedResult.getPk());
 }
 ```
@@ -101,6 +101,10 @@ for (InstagramTagFeedResultTag feedResult : tagFeed.getItems()) {
 instagram.sendRequest(new InstagramLikeRequest(feedResult.getPk()));
 ```
 
+#### Get comments from media
+```java
+InstagramGetMediaCommentsResult commentsResult = instagram.sendRequest(new InstagramGetMediaCommentsRequest(mediaId, maxCommentId));
+```
 
 #### (More operations to be added)
 

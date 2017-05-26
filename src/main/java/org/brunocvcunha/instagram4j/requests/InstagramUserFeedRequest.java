@@ -15,37 +15,38 @@
  */
 package org.brunocvcunha.instagram4j.requests;
 
-import org.brunocvcunha.instagram4j.requests.payload.InstagramSearchTagsResult;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramFeedResult;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 /**
- * Search Tags Request
+ * User Feed Request
  * 
  * @author Bruno Candido Volpato da Cunha
  *
  */
 @AllArgsConstructor
-public class InstagramSearchTagsRequest extends InstagramGetRequest<InstagramSearchTagsResult> {
+@RequiredArgsConstructor
+public class InstagramUserFeedRequest extends InstagramGetRequest<InstagramFeedResult> {
 
-    private String query;
+    @NonNull
+    private long userId;
+    private String maxId;
+    private long minTimestamp;
     
     
     @Override
     public String getUrl() {
-        return "tags/search/?is_typeahead=true&q="+ query + "&rank_token=" + api.getRankToken();
-    }
-
-    @Override
-    public String getPayload() {
-        return null;
+        return "feed/user/" + userId + "/?max_id=" + maxId + "&min_timestamp=" + minTimestamp + "&rank_token=" + api.getRankToken() + "&ranked_content=true&";
     }
 
     @Override
     @SneakyThrows
-    public InstagramSearchTagsResult parseResult(int statusCode, String content) {
-        return parseJson(statusCode, content, InstagramSearchTagsResult.class);
+    public InstagramFeedResult parseResult(int statusCode, String content) {
+        return parseJson(statusCode, content, InstagramFeedResult.class);
     }
 
 }

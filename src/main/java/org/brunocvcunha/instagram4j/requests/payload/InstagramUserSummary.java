@@ -15,17 +15,25 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * User Summary VO
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class InstagramUserSummary {
     public boolean is_verified;
     public String profile_pic_id;
+    public boolean is_favorite;
     public boolean is_private;
     public String username;
     public long pk;

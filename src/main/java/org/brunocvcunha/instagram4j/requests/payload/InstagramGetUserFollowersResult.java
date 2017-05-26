@@ -15,9 +15,14 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Get Followers Result
@@ -25,9 +30,10 @@ import lombok.Data;
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@Data
-public class InstagramGetUserFollowersResult {
-    public String status;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class InstagramGetUserFollowersResult extends StatusResult {
     public boolean big_list;
     public String next_max_id;
     public int page_size;

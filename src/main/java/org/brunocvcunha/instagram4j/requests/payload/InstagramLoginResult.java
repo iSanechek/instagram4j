@@ -15,19 +15,23 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Login Result
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@Data
-public class InstagramLoginResult {
-    private String status;
-    private Map<String, Object> logged_in_user;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class InstagramLoginResult extends StatusResult {
+    private InstagramLoggedUser logged_in_user;
     
 
 }

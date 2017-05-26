@@ -15,7 +15,12 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Search Username Result
@@ -23,9 +28,10 @@ import lombok.Data;
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@Data
-public class InstagramSearchUsernameResult {
-    private String status;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class InstagramSearchUsernameResult extends StatusResult {
     private InstagramUser user;
 
 }

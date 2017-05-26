@@ -20,49 +20,55 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.brunocvcunha.instagram4j.requests.payload.StatusResult;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramCheckUsernameResult;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j;
 
 /**
- * Follow Request
+ * Sync Features Request
  * 
  * @author Bruno Candido Volpato da Cunha
  *
  */
 @AllArgsConstructor
 @Log4j
-public class InstagramFollowRequest extends InstagramPostRequest<StatusResult> {
+public class InstagramCheckUsernameRequest extends InstagramPostRequest<InstagramCheckUsernameResult> {
 
-    private long userId;
-
+    @NonNull
+    private String username;
+    
     @Override
     public String getUrl() {
-        return "friendships/create/" + userId + "/";
+        return "users/check_username/";
     }
 
     @Override
     @SneakyThrows
     public String getPayload() {
-        
-        Map<String, Object> likeMap = new LinkedHashMap<>();
-        likeMap.put("_uuid", api.getUuid());
-        likeMap.put("_uid", api.getUserId());
-        likeMap.put("user_id", userId);
-        likeMap.put("_csrftoken", api.getOrFetchCsrf());
-        
         ObjectMapper mapper = new ObjectMapper();
-        String payloadJson = mapper.writeValueAsString(likeMap);
+        
+        Map<String, Object> payloadMap = new LinkedHashMap<>();
+        payloadMap.put("username", username);
+        payloadMap.put("_csrftoken", api.getOrFetchCsrf());
+        
+        String payloadJson = mapper.writeValueAsString(payloadMap);
 
         return payloadJson;
     }
 
     @Override
     @SneakyThrows
-    public StatusResult parseResult(int statusCode, String content) {
-        return parseJson(statusCode, content, StatusResult.class);
+    public InstagramCheckUsernameResult parseResult(int statusCode, String content) {
+        return this.parseJson(content, InstagramCheckUsernameResult.class);
     }
+
+    @Override
+    public boolean requiresLogin() {
+        return false;
+    }
+
 
 }

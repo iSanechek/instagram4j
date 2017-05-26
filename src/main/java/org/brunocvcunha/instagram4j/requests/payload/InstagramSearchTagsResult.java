@@ -15,19 +15,25 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Search Tag Result
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@Data
-public class InstagramSearchTagsResult {
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class InstagramSearchTagsResult extends StatusResult {
     private List<InstagramSearchTagsResultTag> results;
-    private String status;
     private boolean has_more;
     private int num_results;
 

@@ -16,32 +16,34 @@
 package org.brunocvcunha.instagram4j.requests;
 
 import org.brunocvcunha.instagram4j.InstagramConstants;
-import org.brunocvcunha.instagram4j.requests.payload.InstagramSearchUsersResult;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramGetMediaCommentsResult;
 
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
+import lombok.NonNull;
 
 /**
- * Search Users Request
+ * Get media comments request
  * 
- * @author Bruno Candido Volpato da Cunha
+ * @author Evgeny Bondarenko (evgbondarenko@gmail.com)
  *
  */
 @AllArgsConstructor
-public class InstagramSearchUsersRequest extends InstagramGetRequest<InstagramSearchUsersResult> {
+public class InstagramGetMediaCommentsRequest extends InstagramGetRequest<InstagramGetMediaCommentsResult> {
+	@NonNull
+	private String mediaId;
+	private String maxId;
 
-    private String query;
-    
-    @Override
-    public String getUrl() {
-        return "users/search/?ig_sig_key_version=" + InstagramConstants.API_KEY_VERSION
-                + "&is_typeahead=true&query="+ query + "&rank_token=" + api.getRankToken();
-    }
+	@Override
+	public String getUrl() {
+		String url = "media/" + mediaId + "/comments/?ig_sig_key_version=" + InstagramConstants.API_KEY_VERSION;
+		if (maxId != null && !maxId.isEmpty()) {
+			url += "&max_id=" + maxId;
+		}
+		return url;
+	}
 
-    @Override
-    @SneakyThrows
-    public InstagramSearchUsersResult parseResult(int statusCode, String content) {
-        return parseJson(statusCode, content, InstagramSearchUsersResult.class);
-    }
-
+	@Override
+	public InstagramGetMediaCommentsResult parseResult(int statusCode, String content) {
+		return parseJson(statusCode, content, InstagramGetMediaCommentsResult.class);
+	}
 }

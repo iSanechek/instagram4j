@@ -17,10 +17,8 @@ package org.brunocvcunha.instagram4j.requests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.apache.http.HttpResponse;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramLoginPayload;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramLoginResult;
-import org.brunocvcunha.instagram4j.requests.payload.StatusResult;
 
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -55,7 +53,7 @@ public class InstagramLoginRequest extends InstagramPostRequest<InstagramLoginRe
     @Override
     @SneakyThrows
     public InstagramLoginResult parseResult(int statusCode, String content) {
-        return parseJson(content, InstagramLoginResult.class);
+        return parseJson(statusCode, content, InstagramLoginResult.class);
     }
 
     @Override

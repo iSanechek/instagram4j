@@ -15,9 +15,14 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Data class for response from feed requests
@@ -25,13 +30,14 @@ import lombok.Data;
  * @author Bruno Candido Volpato da Cunha
  *
  */
-@Data
-public class InstagramFeedResult {
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class InstagramFeedResult extends StatusResult {
 
     private boolean auto_load_more_enabled;
     private int num_results;
     private String next_max_id;
-    private String status;
 
     private List<InstagramFeedItem> items;
     private List<InstagramFeedItem> ranked_items;

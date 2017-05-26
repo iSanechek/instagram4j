@@ -15,30 +15,26 @@
  */
 package org.brunocvcunha.instagram4j.requests.payload;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.NonFinal;
 
 /**
- * Status Result
- * @author Bruno Candido Volpato da Cunha
+ * @author Evgeny Bondarenko (evgbondarenko@gmail.com)
  *
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
-@RequiredArgsConstructor
-@NoArgsConstructor
-public class StatusResult {
-    @NonNull
-    private String status;
-    private String message;
-
+public class InstagramComment {
+	private long pk;
+	private long user_id;
+	private String text;
+	private int type;
+	private long created_at;
+	private long created_at_utc;
+	private String content_type;
+	private String status;
+	private int bit_flags;
+	private InstagramUser user;
 }

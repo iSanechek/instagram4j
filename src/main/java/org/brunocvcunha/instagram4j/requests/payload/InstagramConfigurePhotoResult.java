@@ -19,26 +19,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.NonFinal;
 
 /**
- * Status Result
+ * Configure Photo Result
+ * 
  * @author Bruno Candido Volpato da Cunha
  *
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
-@RequiredArgsConstructor
-@NoArgsConstructor
-public class StatusResult {
-    @NonNull
-    private String status;
-    private String message;
+public class InstagramConfigurePhotoResult extends StatusResult {
+
+    private InstagramFeedItem media;
+    private String upload_id;
 
 }

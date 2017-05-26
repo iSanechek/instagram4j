@@ -19,26 +19,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.NonFinal;
 
 /**
- * Status Result
+ * Data class for response from check username
+ * 
  * @author Bruno Candido Volpato da Cunha
  *
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
-@RequiredArgsConstructor
-@NoArgsConstructor
-public class StatusResult {
-    @NonNull
-    private String status;
-    private String message;
+public class InstagramCheckUsernameResult extends StatusResult {
+    
+    private boolean available;
+    private String username;
+    private String error;
+    private String error_type;
 
 }
